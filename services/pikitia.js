@@ -1,5 +1,6 @@
 const path = require('path');
 const puppeteer = require('puppeteer');
+const config = require('config');
 
 module.exports = {
   pdf,
@@ -52,7 +53,11 @@ function getBrowser() {
   const executablePath = path.join(path.dirname(revInfo.executablePath), 'headless_shell');
   const options = {
     executablePath: executablePath,
+    headless: config.get('puppeteer.headless'),
+    args: config.get('puppeteer.args'),
+    slowMo: config.get('puppeteer.slowMo'),
   };
+
 
   return puppeteer.launch(options);
 }
@@ -75,6 +80,7 @@ async function getPage(browser, url, options) {
 
   await page.goto(url, {
     waitUntil: 'networkidle0',
+    timeout: config.get('puppeteer.page.timeout'),
   });
 
   return page;
