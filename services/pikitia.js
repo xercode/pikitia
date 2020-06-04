@@ -55,7 +55,6 @@ function getBrowser() {
     executablePath: executablePath,
     headless: config.get('puppeteer.headless'),
     args: config.get('puppeteer.args'),
-    slowMo: config.get('puppeteer.slowMo'),
   };
 
 
